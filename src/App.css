@@ -45,12 +45,23 @@ td .button {
 
 div.display {
   background-color: lightslategray;
-  font-weight: bold;
+  
   height: 80px;
   width: 284px;
   border: solid 1px darkgray;
+  
+}
+
+div.calc-top {
   word-wrap: break-word;
   font-size: 28px;
   font-family: Arial, Helvetica, sans-serif;
+  font-weight: bold;
+  height: 60px;
+}
+
+div.calc-expression {
+  font-size: 12px;
+  text-align: left;
 }
 

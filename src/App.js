@@ -7,7 +7,7 @@ import Display from './Components/Display'
 
 class App extends React.Component
 {
-  state = { display: "0"}
+  state = { display: "0", expression: ""}
 
   constructor(props)
   {
@@ -25,7 +25,7 @@ class App extends React.Component
         <br />  
         <span>{this.state.buffer}</span>
         <div>
-          <Display Value={this.state.display}></Display>
+          <Display Value={this.state.display} Expression={this.state.expression}></Display>
           <SimpleKeyboard KeyPress={this.keyPress}></SimpleKeyboard>
         </div>
       </header>
@@ -112,8 +112,8 @@ class App extends React.Component
 
   operatorClick = (e) => {
       const current = this.state;
-
-      this.setState({leftOperand: parseFloat(current.display), operator: e, display: "0"})
+      
+      this.setState({leftOperand: parseFloat(current.display), operator: e, display: "0", expression: current.display + ' ' + e})
   };
 
   resultClick = (e) => {
@@ -127,7 +127,7 @@ class App extends React.Component
         rightOperand = current.leftOperand / 100 * parseFloat(current.display)
       
       var result = this.calculate(current.leftOperand, rightOperand, current.operator);
-      this.setState({display: String(result), leftOperand: undefined, operator: undefined});
+      this.setState({display: String(result), leftOperand: undefined, operator: undefined, expression: current.expression + ' ' + rightOperand + ' = ' + result});
   };
 
   calculate(left, right, operator){
