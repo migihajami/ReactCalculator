@@ -82,7 +82,7 @@ class App extends React.Component
   {
     if (value.match(/[0-9.]+/))
       return 'number';
-    if (value.match(/[+\-*/]+/) || value == '÷')
+    if (value.match(/^[+\-*/]+/) || value === '÷')
       return 'operator';
     if (value.match(/[=%]+/))
       return 'result';
@@ -92,6 +92,7 @@ class App extends React.Component
       return 'sign';
     if (value == 'AC')
       return 'clear';
+    return 'undefined'
   }
 
   signClick = (e) =>
