@@ -63,8 +63,9 @@ class App extends React.Component
       this.clearClick('c')
   }
 
-  keyPress = (value, keyType) =>
+  keyPress = (value) =>
   {
+    let keyType = this.detectKeyType(value);
     switch (keyType)
     {
       case 'number': this.numberClick(value); break;
@@ -76,6 +77,22 @@ class App extends React.Component
       default: break;
     }
   };
+
+  detectKeyType = (value) => 
+  {
+    if (value.match(/[0-9.]+/))
+      return 'number';
+    if (value.match(/[+\-*/]+/) || value == '÷')
+      return 'operator';
+    if (value.match(/[=%]+/))
+      return 'result';
+    if (value === '<-')
+      return 'delete';
+    if (value === '±')
+      return 'sign';
+    if (value == 'AC')
+      return 'clear';
+  }
 
   signClick = (e) =>
   {
@@ -136,6 +153,7 @@ class App extends React.Component
           case "+": result = left+right; break;
           case "-": result = left-right; break;
           case "*": result = left*right; break;
+          case "÷": 
           case "/": result = left/right; break;
           default: break;
       }
