@@ -33,34 +33,21 @@ class App extends React.Component
     )
   }
 
+  // prevent Firefox seachbox appearing by pressing '/' and prevent 'Back' by pressing Backspase
   handleKeyDown = (e) =>
   {
-    if (e.keyCode === 191 || e.keyCode === 111)
+    if (e.keyCode === 191 || e.keyCode === 111 || e.keyCode == 8)
       e.preventDefault();
   }
 
   handleKeyboardPress = (e) =>
   {
-    if (e.key.match(/[\d.]+/))
-      this.numberClick(e.key);
-    
-    else if (e.key.match(/[+\-*/]+/))
-      this.operatorClick(e.key);
+    var keyMapping = { 13: '=', 110: '.', 8: '<-'}
+    var val = e.key;
+    if (e.keyCode in keyMapping)
+      val = keyMapping[e.keyCode];
 
-    else if (e.key.match(/[%=]+/))
-      this.resultClick(e.key);
-
-    else if (e.keyCode === 13) // enter
-      this.resultClick('=');
-
-    else if(e.keyCode === 110) // . on numeric keyboard
-      this.numberClick('.');
-
-    else if(e.keyCode === 8) //backspace
-        this.deleteClick('');
-
-    else if (e.key === 'c' || e.key === 'C')
-      this.clearClick('c')
+    this.keyPress(val);
   }
 
   keyPress = (value) =>
@@ -90,7 +77,7 @@ class App extends React.Component
       return 'delete';
     if (value === '±')
       return 'sign';
-    if (value == 'AC')
+    if (value === 'AC' || value === 'c' || value === 'C')
       return 'clear';
     return 'undefined'
   }
